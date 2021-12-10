@@ -1,28 +1,27 @@
-const { update } = require("./movieModels");
 const Movie = require("./movieModels");
 
-// ADD A NEW MOVIE
+// Add movie
 exports.addMovie = async (movieObj) => {
   try {
     await Movie.sync();
     await Movie.create(movieObj);
-    return `${movieObj.title}Movie created into our DB!`;
+    console.log(`Movie -> "${movieObj.title}" has join our DB!`);
   } catch (err) {
     console.log(err);
   }
 };
 
-// LIST ALL THE MOVIES IN OUR DB
+// List all movies
 exports.listMovies = async () => {
   try {
     console.log(await Movie.findAll({}));
-    console.log("Those are our movies!");
+    console.log("^ Those, are our movies! ^");
   } catch (err) {
     console.log(err);
   }
 };
 
-// UPDATE 1 MOVIE
+// Update movie
 exports.updateMovie = async (movieObj) => {
   try {
     await Movie.update(
@@ -32,19 +31,21 @@ exports.updateMovie = async (movieObj) => {
         where: { title: movieObj.title },
       }
     );
-    console.log("Movie updated!");
+    console.log(
+      `Movie -> "${movieObj.title}" updated, those are the new results: Actor = ${movieObj.actor} and Genre = ${movieObj.genre}`
+    );
   } catch (err) {
     console.log(err);
   }
 };
 
+// Delete movie
 exports.deleteMovie = async (movieObj) => {
   try {
-    await Movie.delete.bulkDelete({
-      tableName: "Movies",
+    await Movie.destroy({
       where: { title: movieObj.title },
     });
-    console.log("Movie deleted!");
+    console.log(`"${movieObj.title}" has been deleted from our DB!`);
   } catch (err) {
     console.log(err);
   }
