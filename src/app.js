@@ -3,6 +3,7 @@ const {
   listMovies,
   deleteMovie,
   updateMovie,
+  listActor,
 } = require("./movie/movieMethods");
 
 const command = process.argv[2];
@@ -18,6 +19,9 @@ const app = async () => {
       break;
     case "list":
       listMovies();
+      break;
+    case "listActor":
+      listActor();
       break;
     case "update":
       updateMovie({
